@@ -1,6 +1,10 @@
 from enum import Enum
+import operator
 
 from transformers import pipeline
+
+#This is the minimum threshold for an option to be considered with probability equal to its score.
+MINORITY_THRESHOLD = 0.2
 
 class sentiment(Enum):
   ANGRY = "anger"
@@ -23,12 +27,38 @@ class Classifier:
 
     sentences_with_sentiment = {}
 
-    for element in splitted:
-      sentences_with_sentiment[element] = self.model(element)
-    #Now we have a dictionnary with sentences and the related sentiments
+    for sentence in splitted:
+      emotions_list = self.sortByScore(self.model(sentence)[0])
+      #Now we have a dictionnary with sentences and the related sentiments sorted
 
+      total = 0
+      index = 0
+      temp = []
+
+      while(total < 0.8):
+        total += emotions_list[index]['score']
+        temp.append(emotions_list[index])
+        index += 1 
+      
+      emotions_list = self.normalize(temp)
+
+      print(emotions_list)
+
+    
     return sentences_with_sentiment
 
+  #normalize a list of dict with emotions and scores between 0 and 1 for ONE sentence
+  def normalize(self, list):
+    normalized_list = []
+
+    for element in list:
+      tmp = (element['score'] / sum(item['score'] for item in list))
+      normalized_list.append(tmp)
+    return(normalized_list)
+
+  #sort the emotion list by descending score
+  def sortByScore(self, list):
+    return sorted(list, key = lambda d: d['score'], reverse=True)
 
   def splitIntoSentences(self, text):
     sentences = text.split(".")
