@@ -18,7 +18,7 @@ class sentiment(Enum):
 
 class Classifier:
   def __init__(self) -> None:
-    self.model = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", return_all_scores=True) #return_all_scores=True to return all sentiments
+    self.model = pipeline("text-classification", model="j-hartmann/emotion-english-distilroberta-base", top_k=None)
 
   def classify(self, text, auto_split):
     if auto_split == True:

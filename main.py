@@ -10,10 +10,28 @@ from sentiment_analysis import Classifier, sentiment
 AUTO_SPLIT = True
 
 def main():
+
+    print("""
+
+
+    _________________                                                                                             
+   / ____/ ___/_  __/                                                                                             
+  / __/  \__ \ / /                                                                                                
+ / /___ ___/ // /                                                                                                 
+/_____//____//_/_______          __                   _         _____ __                  ______     ____         
+              / ____/ /__  _____/ /__________  ____  (_)____   / ___// /_____  _______  _/_  __/__  / / /__  _____
+             / __/ / / _ \/ ___/ __/ ___/ __ \/ __ \/ / ___/   \__ \/ __/ __ \/ ___/ / / // / / _ \/ / / _ \/ ___/
+            / /___/ /  __/ /__/ /_/ /  / /_/ / / / / / /__    ___/ / /_/ /_/ / /  / /_/ // / /  __/ / /  __/ /    
+           /_____/_/\___/\___/\__/_/   \____/_/ /_/_/\___/   /____/\__/\____/_/   \__, //_/  \___/_/_/\___/_/     
+                                                                                 /____/                           
+
+""")
+
     robot = Mock_Robot()
     classifier = Classifier()
 
-    print("QT Robot will tell you a story. Which one do you want to hear?\n")
+    print("QT Robot will tell you a story. Which one do you want to hear?\n \
+    \t -- Run story_gen.py to generate new ones or put text files in stories/\n")
     textfiles = {}
     with os.scandir('stories/') as entries:
         i = 1
@@ -28,6 +46,8 @@ def main():
         text = f.read()
 
     sentences_with_sentiment = classifier.classify(text, AUTO_SPLIT)
+
+    last_sentiment = ()
 
     for sentence in sentences_with_sentiment.keys():
         if sentiment(sentences_with_sentiment[sentence]) != sentiment.NEUTRAL:
@@ -45,7 +65,7 @@ def main():
             print("neutral -> speaking with lips")
             robot.say_serv_lips(sentence)
             last_sentiment = sentiment.NEUTRAL
-        time.sleep(1)
+        #time.sleep(1)
         #rospy.sleep(0.1)
         print("\n") 
 
