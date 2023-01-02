@@ -19,15 +19,12 @@ def mainNoArt():
         story = generateStory(genre, world, main_character, occupation, topic)
         print("Here the generated story: \n")
         print(story)
-        print("###\n Would you like to save your story (s), to retry (r) or to quit (q)?")
+        print("###\n Would you like to save your story (s) or to quit (q)?")
         choice = input()
 
         while(True):
             if(choice == 's'):
                 save(story)
-                break
-            elif(choice == 'r'):
-                main()
                 break
             elif(choice == 'q'):
                 print("quitting")
@@ -37,14 +34,12 @@ def mainNoArt():
 
     else:
         print("Invalid choice")
-        mainNoArt()
 
 def save(text):
     print("How should the story be called?")
     name = input()
     with open("stories/" + name, 'w') as f:
         f.write(text)
-    main()
 
 def interactivePrompt():
     story = ""
@@ -52,14 +47,14 @@ def interactivePrompt():
     print("Please enter one or two sentences to begin the story:")
     start = input()
     prompt = start + " "
-    story += prompt
     
     while(prompt != 'q '):
-        story += generateText(prompt, generator)
-        print(story)
-        print("\n###\nEnter the next sentence or q to quit:")
+        result = generateText(prompt, generator)
+        result = result.rsplit(" ", 1)[0]
+        print(result)
+        story += result
+        print("\n###\nEnter the next words in the text or type 'q' to quit:")
         prompt = input() + " "
-        story += prompt
     
     print("\n###\nHere is the finished story:")
     print(story)
@@ -72,7 +67,6 @@ def interactivePrompt():
             save(story)
             break
         elif(choice == "n"):
-            main()
             break
         else:
             print("Invalid input")
