@@ -1,5 +1,6 @@
 from enum import Enum
 import operator
+import random
 
 from transformers import pipeline
 
@@ -38,14 +39,24 @@ class Classifier:
       while(total < 0.8):
         total += emotions_list[index]['score']
         temp.append(emotions_list[index])
+
         index += 1 
       
       emotions_list = self.normalize(temp)
 
-      print(emotions_list)
-
+      sentences_with_sentiment[sentence] = self.weightedRandom(emotions_list)[0]
     
     return sentences_with_sentiment
+
+  #chooses an emotion in the selected set used as input. This functions expects the list to be normalized between 0 and 1 and with the sum equals to 1
+  def weightedRandom(self, list):
+    emotions = []
+    weights = []
+    for element in list:
+      emotions.append(element['label'])
+      weights.append(element['score'])
+    
+    return random.choices(population=emotions, weights=weights, k = 1)
 
   #normalize a list of dict with emotions and scores between 0 and 1 for ONE sentence
   def normalize(self, list):
@@ -53,7 +64,8 @@ class Classifier:
 
     for element in list:
       tmp = (element['score'] / sum(item['score'] for item in list))
-      normalized_list.append(tmp)
+      normalized_list.append({'label' : element['label'], 'score' : tmp})
+
     return(normalized_list)
 
   #sort the emotion list by descending score

@@ -28,9 +28,8 @@ def main():
 
     sentences_with_sentiment = classifier.classify(text, AUTO_SPLIT)
 
-    last_sentiment = ()
-    for sentence in sentences_with_sentiment.keys():
-        if sentiment(sentences_with_sentiment[sentence]) != sentiment.NEUTRAL:
+    """for sentence in sentences_with_sentiment.keys():
+         if sentiment(sentences_with_sentiment[sentence]) != sentiment.NEUTRAL:
             if sentiment(sentences_with_sentiment[sentence]) != last_sentiment:
                 last_sentiment = sentiment(sentences_with_sentiment[sentence])
                 print("SENTIMENT -> " + sentences_with_sentiment[sentence])
@@ -46,7 +45,7 @@ def main():
             robot.say_serv_lips(sentence)
             last_sentiment = sentiment.NEUTRAL
         #rospy.sleep(0.1)
-        print("\n")
+        print("\n") """
 
 
 if __name__ == "__main__":
