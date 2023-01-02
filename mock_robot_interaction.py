@@ -17,39 +17,9 @@ class Mock_Robot:
         
     
     def showEmotion(self, emotion):
-        if emotion == sentiment.ANGRY:
-            print("ANGRY EMOTION")
-        elif emotion == sentiment.DISGUSTED:
-            print("DISGUSTED EMOTION")
-        elif emotion == sentiment.AFRAID:
-            print("AFRAID EMOTION")
-        elif emotion == sentiment.JOYFUL:
-            print("HAPPY EMOTION")
-        #elif emotion == sentiment.NEUTRAL:
-            #emotion_pub.publish("QT/neutral")
-        elif emotion == sentiment.SAD:
-            print("SAD EMOTION")
-        elif emotion == sentiment.SURPRISED:
-            print("SURPISED EMOTION")
-
         print("showed emotion: " + str(emotion))
 
     def playGesture(self, gesture):
-        if gesture == sentiment.ANGRY:
-            print("ANGRY GESTURE")
-        elif gesture == sentiment.DISGUSTED:
-            print("DISGUSTED GESTURE")
-        elif gesture == sentiment.AFRAID:
-            print("AFRAID GESTURE")
-        elif gesture == sentiment.JOYFUL:
-            print("HAPPY GESTURE")
-        #elif gesture == sentiment.NEUTRAL:
-            #gesture_pub.publish("QT/neutral")
-        elif gesture == sentiment.SAD:
-            print("SAD GESTURE")
-        elif gesture == sentiment.SURPRISED:
-            print("SURPRISE GESTURE")
-
         print("played gesture " + str(gesture))
 
     def say(self, text):
