@@ -6,6 +6,7 @@ import time
 #from robot_interaction import Robot
 from mock_robot_interaction import Mock_Robot
 from sentiment_analysis import Classifier, sentiment
+import story_gen
 
 AUTO_SPLIT = True
 
@@ -31,7 +32,7 @@ def main():
     classifier = Classifier()
 
     print("QT Robot will tell you a story. Which one do you want to hear?\n \
-    \t -- Run story_gen.py to generate new ones or put text files in stories/\n")
+    \t -- Select the last option to generate new ones or put text files in stories/\n")
     textfiles = {}
     with os.scandir('stories/') as entries:
         i = 1
@@ -39,11 +40,16 @@ def main():
             print(str(i) + " - " + entry.name)
             textfiles[i] = entry.name
             i += 1
+        print("\n" + str(i) + " - Generate new story\n")
 
     print("Your choice : ")
     choice = int(input())
-    with open("stories/" + textfiles.get(choice)) as f:
-        text = f.read()
+    if (choice == i):
+        story_gen.main()
+        main()
+    else:
+        with open("stories/" + textfiles.get(choice)) as f:
+            text = f.read()
 
     sentences_with_sentiment = classifier.classify(text, AUTO_SPLIT)
 
