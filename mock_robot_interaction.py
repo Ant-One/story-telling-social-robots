@@ -18,19 +18,19 @@ class Mock_Robot:
     
     def showEmotion(self, emotion):
         if emotion == sentiment.ANGRY:
-            self.emotion_pub.publish("QT/angry")
+            print("ANGRY EMOTION")
         elif emotion == sentiment.DISGUSTED:
-            self.emotion_pub.publish("QT/disgusted")
+            print("DISGUSTED EMOTION")
         elif emotion == sentiment.AFRAID:
-            self.emotion_pub.publish("QT/afraid")
+            print("AFRAID EMOTION")
         elif emotion == sentiment.JOYFUL:
-            self.emotion_pub.publish("QT/happy")
+            print("HAPPY EMOTION")
         #elif emotion == sentiment.NEUTRAL:
             #emotion_pub.publish("QT/neutral")
         elif emotion == sentiment.SAD:
-            self.emotion_pub.publish("QT/sad")
+            print("SAD EMOTION")
         elif emotion == sentiment.SURPRISED:
-            self.emotion_pub.publish("QT/surprised")
+            print("SURPISED EMOTION")
 
         print("showed emotion: " + str(emotion))
 
