@@ -43,6 +43,7 @@ def main():
         print("\n" + str(i) + " - Generate new story\n")
 
     print("Your choice : ")
+    text = ""
     choice = int(input())
     if (choice == i):
         story_gen.main()
