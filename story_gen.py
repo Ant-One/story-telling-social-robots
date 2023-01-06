@@ -85,14 +85,17 @@ def generateText(input, generator):
 def questions():
     print("What is the genre of the story? (Historical, Sci-Fi, Fantasy, Thriller, Western, ...")
     genre = input()
+    genre = genre.lower()
     print("What is the name of the world in the story?")
     world = input()
-    print("Fine, who is the main character of the story? How do others call him?")
+    print("Fine, who is the main character of the story? How do others call him or her?")
     main_character = input()
     print("And what is the occupation of " + main_character + "?")
     occupation = input()
+    occupation = occupation.lower()
     print("Last question, what will be this story about? (Love, death, robots, friendship, money, coming-of-age, ...")
     topic = input()
+    topic = topic.lower()
 
     print(f"Now generating a {genre} story about {topic} with {main_character}, a brave {occupation}...")
 
@@ -119,7 +122,7 @@ def generateStory(genre, world, main_character, occupation, topic):
     input_ids = tokenizer(context, return_tensors="pt").input_ids.to(device)
     generated_ids = model.generate(input_ids, do_sample=True, temperature=0.9, max_length=2000)
     story = tokenizer.decode(generated_ids[0])
-    story2 = story[0].get("generated_text").replace(context, "")
+    story2 = storyreplace(context, "")
     return(story2)
 
 
