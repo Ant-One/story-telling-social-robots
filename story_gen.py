@@ -68,13 +68,15 @@ def interactivePrompt():
 
     print("\n###\nWould you like to save your story (y) or (n)?")
     choice = input()
+
+    question = False
     
-    while(True):
+    while(question == False):
         if(choice == "y"):
             save(story)
-            break
+            question = True
         elif(choice == "n"):
-            break
+            question = True
         else:
             print("Invalid input")
 
