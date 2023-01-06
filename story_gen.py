@@ -1,5 +1,6 @@
 from transformers import pipeline
 from transformers import GPTJForCausalLM
+from transformers import AutoTokenizer
 import torch
 
 def main():
@@ -95,7 +96,11 @@ def generateStory(genre, world, main_character, occupation, topic):
     #generator = pipeline('text-generation', model ='EleutherAI/gpt-neo-125M') #change this to accomodate a larger/different model
 
     #only for the very brave
-    generator = GPTJForCausalLM.from_pretrained("EleutherAI/gpt-j-6B", revision="float16", torch_dtype=torch.float16, low_cpu_mem_usage=True)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    model = GPTJForCausalLM.from_pretrained("EleutherAI/gpt-j-6B", revision="float16", low_cpu_mem_usage=True)
+    model.to(device)
+    tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
 
     context = [
         f"The following is a story. The genre of the story is {genre} and it is a story about {topic}.\
@@ -105,7 +110,9 @@ def generateStory(genre, world, main_character, occupation, topic):
     ]
 
     #context = f"{main_character} is a {occupation} that "
-    story = generator(context, max_new_tokens = 1000)
+    input_ids = tokenizer(context, return_tensors="pt").input_ids.to(device)
+    generated_ids = model.generate(input_ids, do_sample=True, temperature=0.9, max_length=2000)
+    story = tokenizer.decode(generated_ids[0])
     story2 = story[0].get("generated_text").replace(context, "")
     return(story2)
 
