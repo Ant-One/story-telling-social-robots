@@ -111,12 +111,11 @@ def generateStory(genre, world, main_character, occupation, topic):
     model.to(device)
     tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
 
-    context = [
-        f"The following is a story. The genre of the story is {genre} and it is a story about {topic}.\
+    context = f"""The following is a story. The genre of the story is {genre} and it is a story about {topic}.\
             The story is set in the world of {world}.\
             The main character of this story is {main_character}. {main_character} is a {occupation}.\
             \nThe story begins as follow: In the world of {world}, {main_character} is """
-    ]
+    
 
     #context = f"{main_character} is a {occupation} that "
     input_ids = tokenizer(context, return_tensors="pt").input_ids.to(device)
