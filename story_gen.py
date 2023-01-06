@@ -10,7 +10,7 @@ def main():
 def mainNoArt():
     print("There are two ways to generate a story :")
     print("1 - writing collaboratively with the model")
-    print("2 - answering several questions to guide the model to generate the story. This works with GPT-J and requires > 26 GB of RAM")
+    print("2 - answering several questions to guide the model to generate the story. This works with GPT-J and requires > 12 GB of RAM available")
     choice = int(input())
 
     if (choice == 1):
