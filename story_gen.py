@@ -47,15 +47,21 @@ def interactivePrompt():
     generator = pipeline('text-generation', model ='EleutherAI/gpt-neo-125M')
     print("Please enter one or two sentences to begin the story:")
     start = input()
-    prompt = start + " "
+    if start[-1] != '.' :
+            start += "."
+    prompt = start
     
-    while(prompt != 'q '):
+    while(prompt != 'q. '):
         result = generateText(prompt, generator)
-        result = result.rsplit(" ", 1)[0]
+        result = result.rsplit(".", 1)[0]
+        result += "."
         print(result)
         story += result
         print("\n###\nEnter the next words in the text or type 'q' to quit:")
-        prompt = input() + " "
+        prompt = input()
+        if prompt[-1] != '.' :
+            prompt += "."
+        prompt += " "
     
     print("\n###\nHere is the finished story:")
     print(story)
@@ -73,7 +79,7 @@ def interactivePrompt():
             print("Invalid input")
 
 def generateText(input, generator):
-    generated = generator(input, max_new_tokens = 100, no_repeat_ngram_size=2)
+    generated = generator(input, max_new_tokens = 100, no_repeat_ngram_size=2, temperature=0.9)
     return(generated[0].get("generated_text").replace("\n", ""))
 
 def questions():
