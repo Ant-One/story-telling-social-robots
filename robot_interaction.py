@@ -33,7 +33,7 @@ class Robot:
         elif emotion == sentiment.SAD:
             self.emotion_pub.publish("QT/sad")
         elif emotion == sentiment.SURPRISED:
-            self.emotion_pub.publish("QT/surprised")
+            self.emotion_pub.publish("QT/surprise")
 
         rospy.loginfo("showed emotion: " + str(emotion))
 
@@ -51,7 +51,7 @@ class Robot:
         elif gesture == sentiment.SAD:
             self.gesture_pub.publish("QT/emotions/sad")
         elif gesture == sentiment.SURPRISED:
-            self.gesture_pub.publish("QT/emotions/surprise")
+            self.gesture_pub.publish("QT/emotions/surprised")
 
         rospy.loginfo("played gesture " + str(gesture))
 
@@ -62,9 +62,11 @@ class Robot:
     def say_serv(self, text):
         rospy.loginfo("Speech service saying: " + text)
         rospy.wait_for_service('/qt_robot/speech/say') 
+        rospy.wait_for_service('/qt_robot/behavior/talkText')
         self.speech_serv(text)
 
     def say_serv_lips(self, text):
         rospy.loginfo("Speech service saying with lip-sync: " + text)
         rospy.wait_for_service('/qt_robot/behavior/talkText')
+        rospy.wait_for_service('/qt_robot/speech/say') 
         self.speech_serv(text)

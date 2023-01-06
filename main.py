@@ -1,9 +1,9 @@
 import os
 import time
 
-#import rospy
+#import rospy #uncomment this if you are working with QT robot
 
-#from robot_interaction import Robot
+#from robot_interaction import Robot #and this
 from mock_robot_interaction import Mock_Robot
 from sentiment_analysis import Classifier, sentiment
 import story_gen
@@ -28,7 +28,7 @@ def main():
 
 """)
 
-    robot = Mock_Robot()
+    robot = Mock_Robot() #and change this to remove "Mock_"
     classifier = Classifier()
 
     print("QT Robot will tell you a story. Which one do you want to hear?\n \
