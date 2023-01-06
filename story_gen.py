@@ -122,7 +122,7 @@ def generateStory(genre, world, main_character, occupation, topic):
     input_ids = tokenizer(context, return_tensors="pt").input_ids.to(device)
     generated_ids = model.generate(input_ids, do_sample=True, temperature=0.9, max_length=2000)
     story = tokenizer.decode(generated_ids[0])
-    story2 = storyreplace(context, "")
+    story2 = story.replace(context, "")
     return(story2)
 
 
