@@ -69,4 +69,4 @@ class Robot:
         rospy.loginfo("Speech service saying with lip-sync: " + text)
         rospy.wait_for_service('/qt_robot/behavior/talkText')
         rospy.wait_for_service('/qt_robot/speech/say') 
-        self.speech_serv(text)
+        self.speech_serv_lips(text)
